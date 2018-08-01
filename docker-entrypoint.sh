@@ -35,7 +35,7 @@ if [ ! -d "$NSSDB_DIR" ]; then
     /usr/bin/certutil -N -d $NSSDB_DIR -f $NSS_PASSWD_FILE
 fi
 
-if [ ! -f /etc/ipa/ca.crt ]; then
+if [[ ! -f /etc/ipa/ca.crt || ! -f /etc/openldap/ldap.conf ]]; then
     file_env 'IPA_PASSWORD'
     if [[ -z "$IPA_PASSWORD" && -z "$IPA_DOMAIN" && -z "$IPA_PRINCIPAL" ]]; then
         echo >&2 'error: IPA client is not configured and "IPA_*" settings are not specified'
