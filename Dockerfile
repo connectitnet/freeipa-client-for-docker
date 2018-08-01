@@ -5,22 +5,15 @@ LABEL maintainer="JSenecal@connectitnet.com"
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update \
  && apt-get install -y freeipa-client pwgen \
- && rm -rf /var/lib/apt/lists/*
+ && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Remove NSSdb certificate repository contents
 RUN rm -rfv /etc/pki/nssdb
 
-ADD docker-entrypoint.sh /
-RUN chmod +x /docker-entrypoint.sh
-
 ADD /src /
 RUN chmod +x /etc/service/*/run
+RUN chmod +x /etc/my_init.d/*.sh
 
-VOLUME [ "/etc/pki/nssdb" ]
-VOLUME [ "/etc/ipa" ]
-
-ENV NSSDB_DIR=/etc/pki/nssdb
-
-ENTRYPOINT ["/docker-entrypoint.sh"]
+VOLUME [ "/etc" ]
 
 CMD ["/sbin/my_init"]

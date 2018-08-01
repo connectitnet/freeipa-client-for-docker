@@ -23,14 +23,15 @@ file_env() {
 	unset "$fileVar"
 }
 
-: ${NSS_PASSWD_FILE:-"/root/.nsspass"}
+# Generate default NSS Password
+DEF_NSS_PASSWD=$(/usr/bin/pwgen 16 1)
+file_env 'NSS_PASSWD' $DEF_NSS_PASSWD
+NSSDB_DIR=/etc/pki/nssdb
+NSS_PASSWD_FILE=/etc/pki/.nsspass
 if [ ! -d "$NSSDB_DIR" ]; then
     # Create NSSdb directory
     mkdir -p $NSSDB_DIR
-    if [ ! -f "$NSS_PASSWD_FILE" ]; then
-        # Generate NSS pass
-        /usr/bin/pwgen 16 1 > $NSS_PASSWD_FILE
-    fi
+    echo $NSS_PASSWD > $NSS_PASSWD_FILE
     # Create new NSSdb certificate repository
     /usr/bin/certutil -N -d $NSSDB_DIR -f $NSS_PASSWD_FILE
 fi
