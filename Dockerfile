@@ -13,9 +13,14 @@ RUN rm -rfv /etc/pki/nssdb
 ADD docker-entrypoint.sh /
 RUN chmod +x /docker-entrypoint.sh
 
+ADD /src /
+RUN chmod +x /etc/service/*/run
+
 VOLUME [ "/etc/pki/nssdb" ]
 VOLUME [ "/etc/ipa" ]
 
 ENV NSSDB_DIR=/etc/pki/nssdb
 
 ENTRYPOINT ["/docker-entrypoint.sh"]
+
+CMD ["/sbin/my_init"]

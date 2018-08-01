@@ -42,8 +42,5 @@ if [[ ! -f /etc/ipa/ca.crt || ! -f /etc/openldap/ldap.conf ]]; then
         exit 1
     fi
     # Install ipa client
-    /usr/sbin/ipa-client-install -U -f --no-ntp --mkhomedir --domain=$IPA_DOMAIN -w $IPA_PASSWORD -p $IPA_PRINCIPAL
+    /usr/sbin/ipa-client-install -U -f --no-ntp --mkhomedir --domain=$IPA_DOMAIN -w $IPA_PASSWORD -p $IPA_PRINCIPAL < /dev/null
 fi
-
-# Execute whatever is requested with this container
-exec "$@"
