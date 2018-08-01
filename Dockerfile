@@ -1,4 +1,4 @@
-FROM ubuntu:latest
+FROM phusion/baseimage:latest
 
 LABEL maintainer="JSenecal@connectitnet.com"
 
