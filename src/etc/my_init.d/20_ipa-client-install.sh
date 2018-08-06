@@ -48,7 +48,7 @@ if [ ! -f /etc/ipa/ca.crt ]; then
         exit 1
     fi
     # Install ipa client
-    /usr/sbin/ipa-client-install -U -f --no-ntp --mkhomedir --domain=$IPA_DOMAIN -w $IPA_PASSWORD -p $IPA_PRINCIPAL --enable-dns-updates --no-nisdomain < /dev/null
+    /usr/sbin/ipa-client-install -U -f --no-ntp --mkhomedir --domain=$IPA_DOMAIN -w $IPA_PASSWORD -p $IPA_PRINCIPAL --enable-dns-updates --no-nisdomain --force-join < /dev/null
 	exit_status=$?
 	cp -f /etc/hostname /etc/ipa/hostname
 	if [ $exit_status -eq 3 ]; then
