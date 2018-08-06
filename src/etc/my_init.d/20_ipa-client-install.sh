@@ -68,3 +68,4 @@ else
 	fi
 	echo "System is already FreeIPA-enrolled, moving on..."
 fi
+
